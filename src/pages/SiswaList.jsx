@@ -38,60 +38,58 @@ function SiswaList() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div>
-      <h2 className="mb-3">Data Siswa</h2>
+    <div className="container mt-4">
+      <h2 className="page-title">Data Siswa</h2>
 
-      <Link to="/siswa/create" className="btn btn-primary mb-3">
-        + Tambah Siswa
-      </Link>
+      <div className="text-end mb-3">
+        <Link to="/siswa/create" className="btn btn-primary">
+          Tambah Data
+        </Link>
+      </div>
 
-      <table className="table table-bordered table-striped">
-        <thead className="table-dark">
-          <tr>
-            <th>Kode</th>
-            <th>Nama</th>
-            <th>Alamat</th>
-            <th>Tanggal</th>
-            <th>Jurusan</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {data.length === 0 ? (
+      {/* WRAPPER DI SINI */}
+      <div className="card card-soft p-3">
+        <table className="table table-bordered table-striped table-hover mt-2">
+          <thead>
             <tr>
-              <td colSpan="6" className="text-center">
-                Tidak ada data
-              </td>
+              <th>Kode</th>
+              <th>Nama</th>
+              <th>Alamat</th>
+              <th>Tanggal</th>
+              <th>Jurusan</th>
+              <th>Aksi</th>
             </tr>
-          ) : (
-            data.map((s) => (
-              <tr key={s.id}>
-                <td>{s.kodeSiswa}</td>
-                <td>{s.namaSiswa}</td>
-                <td>{s.alamatSiswa}</td>
-                <td>{s.tglSiswa}</td>
-                <td>{s.jurusanSiswa}</td>
+          </thead>
+
+          <tbody>
+            {data.map((item) => (
+              <tr key={item.kodeSiswa}>
+                <td>{item.kodeSiswa}</td>
+                <td>{item.namaSiswa}</td>
+                <td>{item.alamatSiswa}</td>
+                <td>{item.tglSiswa}</td>
+                <td>{item.jurusanSiswa}</td>
                 <td>
                   <Link
-                    to={`/siswa/edit/${s.id}`}
-                    className="btn btn-sm btn-warning me-2"
+                    to={`/siswa/edit/${item.kodeSiswa}`}
+                    className="btn btn-warning btn-sm me-2"
                   >
                     Edit
                   </Link>
 
                   <button
-                    onClick={() => handleDelete(s.id)}
-                    className="btn btn-sm btn-danger"
+                    onClick={() => handleDelete(item.kodeSiswa)}
+                    className="btn btn-danger btn-sm"
                   >
                     Hapus
                   </button>
                 </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {/* END WRAPPER */}
     </div>
   );
 }
