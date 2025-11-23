@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { createSiswa } from "../services/siswaApi";
 import { useNavigate } from "react-router-dom";
+import { createSiswa } from "../services/siswaApi";
 
-function SiswaCreate() {
+export default function SiswaCreate() {
   const navigate = useNavigate();
-
   const [form, setForm] = useState({
     kodeSiswa: "",
     namaSiswa: "",
@@ -13,95 +12,121 @@ function SiswaCreate() {
     jurusanSiswa: "",
   });
 
-  // Handle input change
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
+  const [loading, setLoading] = useState(false);
+
+  // handle input change
+  const onChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // Submit form
-  const handleSubmit = async (e) => {
+  // handle submit
+  const onSubmit = async (e) => {
     e.preventDefault();
 
+    // simple validation
+    if (
+      !form.kodeSiswa ||
+      !form.namaSiswa ||
+      !form.tglSiswa ||
+      !form.jurusanSiswa
+    ) {
+      alert("Semua field wajib diisi");
+      return;
+    }
+
     try {
+      setLoading(true);
       await createSiswa(form);
-      alert("Siswa berhasil ditambahkan!");
-      navigate("/siswa"); // back to list
+      alert("Data berhasil ditambahkan");
+      navigate("/siswa");
     } catch (err) {
-      console.error("Error creating siswa:", err);
-      alert("Gagal menambahkan siswa");
+      alert("Gagal menambahkan data");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div>
-      <h2 className="mb-3">Tambah Siswa</h2>
+    <div className="container mt-4">
+      <h2 className="page-title">Tambah Data Siswa</h2>
 
-      <form onSubmit={handleSubmit} className="card p-4 shadow-sm card-soft">
-        <div className="mb-3">
-          <label className="form-label fw-bold">Kode Siswa</label>
-          <input
-            type="text"
-            name="kodeSiswa"
-            className="form-control"
-            value={form.kodeSiswa}
-            onChange={handleChange}
-            required
-          />
-        </div>
+      {/* wrapper card premium */}
+      <div className="card card-soft p-4 mt-3">
+        <form onSubmit={onSubmit}>
+          {/* kode siswa */}
+          <div className="mb-3">
+            <label className="form-label">Kode Siswa</label>
+            <input
+              type="text"
+              className="form-control"
+              name="kodeSiswa"
+              value={form.kodeSiswa}
+              onChange={onChange}
+              placeholder="contoh: S001"
+            />
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label fw-bold">Nama Siswa</label>
-          <input
-            type="text"
-            name="namaSiswa"
-            className="form-control"
-            value={form.namaSiswa}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          {/* nama siswa */}
+          <div className="mb-3">
+            <label className="form-label">Nama Siswa</label>
+            <input
+              type="text"
+              className="form-control"
+              name="namaSiswa"
+              value={form.namaSiswa}
+              onChange={onChange}
+              placeholder="Masukkan nama"
+            />
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label fw-bold">Alamat Siswa</label>
-          <textarea
-            name="alamatSiswa"
-            className="form-control"
-            value={form.alamatSiswa}
-            onChange={handleChange}
-          ></textarea>
-        </div>
+          {/* alamat */}
+          <div className="mb-3">
+            <label className="form-label">Alamat</label>
+            <textarea
+              className="form-control"
+              rows="3"
+              name="alamatSiswa"
+              value={form.alamatSiswa}
+              onChange={onChange}
+              placeholder="Masukkan alamat"
+            ></textarea>
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label fw-bold">Tanggal Siswa</label>
-          <input
-            type="date"
-            name="tglSiswa"
-            className="form-control"
-            value={form.tglSiswa}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          {/* tanggal */}
+          <div className="mb-3">
+            <label className="form-label">Tanggal</label>
+            <input
+              type="date"
+              className="form-control"
+              name="tglSiswa"
+              value={form.tglSiswa}
+              onChange={onChange}
+            />
+          </div>
 
-        <div className="mb-3">
-          <label className="form-label fw-bold">Jurusan Siswa</label>
-          <input
-            type="text"
-            name="jurusanSiswa"
-            className="form-control"
-            value={form.jurusanSiswa}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          {/* jurusan */}
+          <div className="mb-3">
+            <label className="form-label">Jurusan</label>
+            <select
+              className="form-select"
+              name="jurusanSiswa"
+              value={form.jurusanSiswa}
+              onChange={onChange}
+            >
+              <option value="">-- pilih jurusan --</option>
+              <option value="RPL">RPL</option>
+              <option value="TKJ">TKJ</option>
+              <option value="MM">MM</option>
+              <option value="AKL">AKL</option>
+            </select>
+          </div>
 
-        <button className="btn btn-primary">Simpan</button>
-      </form>
+          {/* tombol submit */}
+          <button type="submit" className="btn btn-primary" disabled={loading}>
+            {loading ? "Menyimpan..." : "Simpan"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
-
-export default SiswaCreate;
