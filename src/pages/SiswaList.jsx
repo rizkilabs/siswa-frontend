@@ -74,14 +74,14 @@ function SiswaList() {
                 <td>{item.jurusanSiswa}</td>
                 <td>
                   <Link
-                    to={`/siswa/edit/${item.kodeSiswa}`}
+                    to={`/siswa/edit/${item.id}`}
                     className="btn btn-warning btn-sm me-2"
                   >
                     Edit
                   </Link>
 
                   <button
-                    onClick={() => handleDelete(item.kodeSiswa)}
+                    onClick={() => handleDelete(item.id)}
                     className="btn btn-danger btn-sm"
                   >
                     Hapus
