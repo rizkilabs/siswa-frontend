@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createSiswa } from "../services/siswaApi";
+import toast from "react-hot-toast";
 
 export default function SiswaCreate() {
   const navigate = useNavigate();
@@ -30,17 +31,17 @@ export default function SiswaCreate() {
       !form.tglSiswa ||
       !form.jurusanSiswa
     ) {
-      alert("Semua field wajib diisi");
+      toast.error("Semua field wajib diisi");
       return;
     }
 
     try {
       setLoading(true);
       await createSiswa(form);
-      alert("Data berhasil ditambahkan");
+      toast.success("Data berhasil ditambahkan");
       navigate("/siswa");
     } catch (err) {
-      alert("Gagal menambahkan data");
+      toast.error("Gagal menambahkan data");
     } finally {
       setLoading(false);
     }

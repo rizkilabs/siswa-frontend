@@ -4,10 +4,12 @@ import SiswaList from "./pages/SiswaList";
 import SiswaCreate from "./pages/SiswaCreate";
 import SiswaEdit from "./pages/SiswaEdit";
 import Navbar from "./components/Navbar";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
+      <Toaster position="top-right" />
       <Navbar />
 
       <div className="container mt-4">

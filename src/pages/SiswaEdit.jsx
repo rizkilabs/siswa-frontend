@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSiswaById, updateSiswa } from "../services/siswaApi";
+import toast from "react-hot-toast";
 
 export default function SiswaEdit() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function SiswaEdit() {
         const res = await getSiswaById(id);
         setForm(res.data); // fill form with existing data
       } catch (err) {
-        alert("Gagal mengambil data siswa");
+        toast.error("Gagal memuat data");
       } finally {
         setLoading(false);
       }
@@ -46,17 +47,17 @@ export default function SiswaEdit() {
       !form.tglSiswa ||
       !form.jurusanSiswa
     ) {
-      alert("Semua field wajib diisi");
+      toast.error("Semua field wajib diisi");
       return;
     }
 
     try {
       setUpdateLoading(true);
       await updateSiswa(id, form);
-      alert("Data berhasil diperbarui");
+      toast.success("Data berhasil diperbarui");
       navigate("/siswa");
     } catch (err) {
-      alert("Gagal memperbarui data");
+      toast.error("Gagal memperbarui data");
     } finally {
       setUpdateLoading(false);
     }

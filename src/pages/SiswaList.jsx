@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllSiswa, deleteSiswa } from "../services/siswaApi";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function SiswaList() {
   const [data, setData] = useState([]);
@@ -25,8 +26,10 @@ function SiswaList() {
 
     try {
       await deleteSiswa(id);
+      toast.success("Data berhasil dihapus");
       fetchData(); // refresh table
     } catch (err) {
+      toast.error("Gagal menghapus data");
       console.error("Error deleting siswa:", err);
     }
   };
