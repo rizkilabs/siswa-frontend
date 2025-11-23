@@ -70,7 +70,7 @@ function SiswaList() {
                 <td>{item.kodeSiswa}</td>
                 <td>{item.namaSiswa}</td>
                 <td>{item.alamatSiswa}</td>
-                <td>{item.tglSiswa}</td>
+                <td>{new Date(item.tglSiswa).toLocaleDateString("id-ID")}</td>
                 <td>{item.jurusanSiswa}</td>
                 <td>
                   <Link
