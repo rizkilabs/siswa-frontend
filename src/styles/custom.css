@@ -1,0 +1,28 @@
+/* Smooth card shadow */
+.card-soft {
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.07);
+}
+
+/* Table header style */
+.table thead th {
+  background: #212529;
+  color: white;
+  font-weight: 600;
+}
+
+/* Button spacing fix */
+.btn {
+  padding: 8px 14px;
+}
+
+/* Section title spacing */
+.page-title {
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Navbar shadow */
+.navbar {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
