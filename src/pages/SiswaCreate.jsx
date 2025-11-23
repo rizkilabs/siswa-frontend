@@ -39,7 +39,7 @@ function SiswaCreate() {
     <div>
       <h2 className="mb-3">Tambah Siswa</h2>
 
-      <form onSubmit={handleSubmit} className="card p-4 shadow-sm">
+      <form onSubmit={handleSubmit} className="card p-4 shadow-sm card-soft">
         <div className="mb-3">
           <label className="form-label fw-bold">Kode Siswa</label>
           <input
